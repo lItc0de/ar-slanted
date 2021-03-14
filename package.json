@@ -16,7 +16,7 @@
     "develop": "gatsby develop",
     "start": "gatsby develop",
     "build": "gatsby build",
-    "predeploy": "npm run build",
+    "predeploy": "gatsby build --prefix-paths",
     "deploy": "gh-pages -d public",
     "serve": "gatsby serve",
     "clean": "gatsby clean"
