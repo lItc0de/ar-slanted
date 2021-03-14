@@ -1,0 +1,25 @@
+{
+  "name": "@litc0de/ar-slanted",
+  "version": "1.0.0",
+  "description": "ar app for slanted",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lItc0de/ar-slanted.git"
+  },
+  "keywords": [
+    "ar",
+    "slanted",
+    "image",
+    "recognition"
+  ],
+  "author": "Basti Paintner",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lItc0de/ar-slanted/issues"
+  },
+  "homepage": "https://github.com/lItc0de/ar-slanted#readme"
+}
