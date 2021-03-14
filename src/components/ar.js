@@ -1,60 +1,100 @@
-import React, { Component } from 'react';
+/* globals AFRAME */
 
-class Ar extends Component {
-  state = {
-    showVideo: false,
-    showMarker: false
-  };
+import React, { useEffect, useState } from 'react';
 
-  componentDidMount() {
-    this.addAframeListeners();
-    this.setState({ showMarker: true });
-  }
+const Ar = () => {
+  const [showMarker, setShowMarker] = useState(false);
 
-  addAframeListeners() {
-    const _this = this;
+  useEffect(() => {
+    console.log('useEffect called');
+    AFRAME.registerComponent('marker', {
+      schema: {
+        videoId: { type: 'string', default: 'the-fabricant-overlay' },
+      },
 
-    window.AFRAME.registerComponent('markerhandler', {
       init: function () {
-        alert('update called');
+        const marker = this.el;
+        const videoId = this.data.videoId;
+        console.log('videoId: ', videoId);
+        console.log('markerId: ', marker.id);
 
-        this.el.sceneEl.addEventListener('markerFound', () => {
-          alert('marker found');
-          _this.setState({ showVideo: true });
+        marker.addEventListener('markerFound', () => {
+          console.log('Marker found');
+          document.getElementById(videoId).style.display = 'flex';
         });
 
-        this.el.sceneEl.addEventListener('markerLost', () => {
-          alert('marker lost');
-          _this.setState({ showVideo: false });
+        marker.addEventListener('markerLost', () => {
+          document.getElementById(videoId).style.display = 'none';
         });
       },
     });
-  }
 
-  render() {
-    return (
-      <>
-        <a-scene
-          vr-mode-ui="enabled: false;"
-          renderer="logarithmicDepthBuffer: true;"
-          embedded
-          arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
-        >
-          { this.showMarker && <a-nft
-            type="nft"
-            markerhandler
-            url="/descriptors/917557_902068733248100_1679244782_n"
-            smooth="true"
-            smoothCount="10"
-            smoothTolerance=".01"
-            smoothThreshold="5"
-          ></a-nft> }
-          <a-entity camera></a-entity>
-        </a-scene>
-        { this.state.showVideo && <h1 class="test">Helllo :)</h1> }
-      </>
-    );
-  }
-}
+    setShowMarker(true);
+  }, []);
+
+  return (
+    <>
+      <div class="arjs-loader">
+        <div>Loading, please wait...</div>
+      </div>
+
+      <a-scene
+        vr-mode-ui="enabled: false;"
+        renderer="logarithmicDepthBuffer: true;"
+        embedded
+        arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
+      >
+        {showMarker && (
+          <>
+            <a-nft
+              id="fabricant-marker"
+              type="nft"
+              marker="videoId: the-fabricant-overlay"
+              url="https://cdn.glitch.com/7360ab30-594d-4acf-94db-244075d0619a%2Ffabricant_marker"
+              smooth="true"
+              smoothcount="10"
+              smoothtolerance=".01"
+              smooththreshold="5"
+            ></a-nft>
+
+            <a-nft
+              id="digitalls-marker"
+              type="nft"
+              marker="videoId: the-digitalls-overlay"
+              url="https://cdn.glitch.com/7360ab30-594d-4acf-94db-244075d0619a%2Fdigitalls_marker"
+              smooth="true"
+              smoothcount="10"
+              smoothtolerance=".01"
+              smooththreshold="5"
+            ></a-nft>
+          </>
+        )}
+        <a-entity camera></a-entity>
+      </a-scene>
+
+      <div class="overlay" id="the-fabricant-overlay">
+        <video
+          id="the-fabricant"
+          src="https://cdn.glitch.com/7360ab30-594d-4acf-94db-244075d0619a%2F01_The%20Fabricant.mp4?v=1614372224071"
+          playsinline="true"
+          muted="true"
+          loop="true"
+          autoplay="true"
+        ></video>
+      </div>
+
+      <div class="overlay" id="the-digitalls-overlay">
+        <video
+          id="the-digitalls"
+          src="https://cdn.glitch.com/7360ab30-594d-4acf-94db-244075d0619a%2F02_The%20Digitalls.mp4?v=1614372224395"
+          playsinline="true"
+          muted="true"
+          loop="true"
+          autoplay="true"
+        ></video>
+      </div>
+    </>
+  );
+};
 
 export default Ar;

@@ -2,8 +2,7 @@ import * as React from 'react';
 import '../styles.scss';
 
 import { Helmet } from 'react-helmet';
-// import Ar from '../components/ar';
-import Test from '../components/test';
+import Ar from '../components/ar';
 
 const IndexPage = () => {
   return (
@@ -14,7 +13,7 @@ const IndexPage = () => {
         {/* <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script> */}
         <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js" rel="preload"></script>
       </Helmet>
-      <Test />
+      <Ar />
     </>
   );
 };
