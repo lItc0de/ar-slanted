@@ -1,1 +1,0 @@
-body{margin:0;overflow:hidden}.overlay{display:flex;position:fixed;top:0;left:0;background-color:rgba(0,0,0,.2);height:100%;padding:8px;align-items:center}.overlay,.overlay .video{box-sizing:border-box;width:100%}.overlay .video{max-height:100%;margin-top:auto;margin-bottom:auto}
