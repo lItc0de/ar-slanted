@@ -1,0 +1,38 @@
+[
+  {
+    "name": "the-fabricant",
+    "videoName": "The_Fabricant.mp4",
+    "markerName": "fabricant_marker",
+    "author": "the-fabricant"
+  },
+  {
+    "name": "the-digitalls",
+    "videoName": "The_Digitalls.mp4",
+    "markerName": "digitalls_marker",
+    "author": "the-digitalls"
+  },
+  {
+    "videoName": "01_Deep-Faster-Fashion_video.mp4",
+    "markerName": "01_Deep-Faster-Fashion_marker",
+    "videoDescription": "Deep Faster Fashion",
+    "author": "A. J. Slooten & The Fabricant"
+  },
+  {
+    "videoName": "21_Neural-Zoo_Sophia-Crespo_video.mp4",
+    "markerName": "21_Neural-Zoo_Sophia-Crespo_marker",
+    "videoDescription": "Neural Zoo",
+    "author": "Sophia Crespo"
+  },
+  {
+    "videoName": "10_Scott Eaton_Entangled-II_video.mp4",
+    "markerName": "10_Scott-Eaton_Entangled-II_marker",
+    "videoDescription": "Entangled II",
+    "author": "Scott Eaton"
+  },
+  {
+    "videoName": "09_Cloud-of-Petals_Sarah-Meyohas_video.mp4",
+    "markerName": "09_Cloud-of-Petals_Sarah-Meyohas_marker",
+    "videoDescription": "Cloud-of-Petals",
+    "author": "Sarah Meyohas"
+  }
+]

@@ -1,0 +1,37 @@
+.top,
+.left,
+.right,
+.bottom {
+  display: block;
+  position: fixed;
+  background-color: rgba(27, 27, 27, 0.7);
+  border-radius: 2px;
+}
+
+.top {
+  height: 10px;
+  top: 15vh;
+  width: 80vw;
+  left: 10vw;
+}
+
+.left {
+  height: 60vh;
+  top: 20vh;
+  width: 10px;
+  left: 5vw;
+}
+
+.right {
+  height: 60vh;
+  top: 20vh;
+  width: 10px;
+  right: 5vw;
+}
+
+.bottom {
+  height: 10px;
+  bottom: 15vh;
+  width: 80vw;
+  left: 10vw;
+}
