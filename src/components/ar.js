@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import markers from '../data/markers.json';
 import Marker from './marker';
 import Overlay from './overlay';
+import waitForGlobal from '../utils/waitForGlobal';
 
 const moveVideo = () => {
   const video = document.getElementById('arjs-video');
@@ -38,13 +39,18 @@ const registerMarkerComponents = async (setShowMarker, setCurrentVideoName) => {
 }
 
 const Ar = () => {
+  const [showScene, setShowScene] = useState(false);
   const [showMarker, setShowMarker] = useState(false);
   const [currentVideoName, setCurrentVideoName] = useState(null);
 
   useEffect(() => {
     window.addEventListener('arjs-video-loaded', moveVideo);
-    registerMarkerComponents(setShowMarker, setCurrentVideoName);
+    waitForGlobal('AFRAME').then(() => { setShowScene(true) })
   }, []);
+
+  useEffect(() => {
+    showScene && registerMarkerComponents(setShowMarker, setCurrentVideoName)
+  }, [showScene]);
 
   return (
     <>
@@ -52,7 +58,7 @@ const Ar = () => {
         <div>Loading, please wait...</div>
       </div>
 
-      <a-scene
+      {showScene && <a-scene
         id="a-scene"
         vr-mode-ui="enabled: false;"
         renderer="logarithmicDepthBuffer: true;"
@@ -60,10 +66,10 @@ const Ar = () => {
         arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
       >
         {showMarker && markers.map((marker) => (
-          <Marker name={marker.name} markerName={marker.markerName} videoName={marker.videoName} />
+          <Marker name={marker.name} markerName={marker.markerName} videoName={marker.videoName} key={marker.markerName} />
         ))}
         <a-entity camera></a-entity>
-      </a-scene>
+      </a-scene>}
 
       <Overlay videoName={currentVideoName}/>
     </>

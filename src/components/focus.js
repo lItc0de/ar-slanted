@@ -3,10 +3,10 @@ import * as focusStyles from './focus.module.css';
 
 const Focus = () => (
   <>
-    <div className={focusStyles.top}></div>
-    <div className={focusStyles.left}></div>
-    <div className={focusStyles.right}></div>
-    <div className={focusStyles.bottom}></div>
+    <div className={focusStyles.topLeft}></div>
+    <div className={focusStyles.topRight}></div>
+    <div className={focusStyles.bottomLeft}></div>
+    <div className={focusStyles.bottomRight}></div>
   </>
 );
 

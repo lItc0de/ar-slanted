@@ -1,37 +1,38 @@
-.top,
-.left,
-.right,
-.bottom {
+.topLeft,
+.topRight,
+.bottomLeft,
+.bottomRight {
   display: block;
   position: fixed;
-  background-color: rgba(27, 27, 27, 0.7);
-  border-radius: 2px;
+  border: 0 solid rgba(255, 255, 255, 0.7);
+  width: 10vw;
+  height: 10vw;
 }
 
-.top {
-  height: 10px;
-  top: 15vh;
-  width: 80vw;
-  left: 10vw;
+.topLeft {
+  top: 16px;
+  left: 16px;
+  border-left-width: 2px;
+  border-top-width: 2px;
 }
 
-.left {
-  height: 60vh;
-  top: 20vh;
-  width: 10px;
-  left: 5vw;
+.topRight {
+  top: 16px;
+  right: 16px;
+  border-right-width: 2px;
+  border-top-width: 2px;
 }
 
-.right {
-  height: 60vh;
-  top: 20vh;
-  width: 10px;
-  right: 5vw;
+.bottomLeft {
+  bottom: 16px;
+  left: 16px;
+  border-left-width: 2px;
+  border-bottom-width: 2px;
 }
 
-.bottom {
-  height: 10px;
-  bottom: 15vh;
-  width: 80vw;
-  left: 10vw;
+.bottomRight {
+  bottom: 16px;
+  right: 16px;
+  border-bottom-width: 2px;
+  border-right-width: 2px;
 }
