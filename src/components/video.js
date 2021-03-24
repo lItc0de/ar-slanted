@@ -1,16 +1,26 @@
 import React from 'react';
+import { Player, ControlBar, VolumeMenuButton, BigPlayButton } from 'video-react';
 import * as videoStyles from './video.module.css';
 
 const Video = (props) => {
   return (
-    <video
+    <Player
       src={props.src}
       className={videoStyles.video}
       playsInline
       muted
       loop
       autoPlay
-    ></video>
+    >
+      <BigPlayButton position="center" />
+      <ControlBar
+        autoHide={false}
+        className={videoStyles.controlBar}
+        disableDefaultControls
+      >
+        <VolumeMenuButton vertical />
+      </ControlBar>
+    </Player>
   );
 };
 

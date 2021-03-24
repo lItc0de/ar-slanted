@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Video from './video';
 import Focus from './focus';
+import '../../node_modules/video-react/dist/video-react.css';
 import * as overlayStyles from './overlay.module.css';
 
 const Overlay = (props) => {
@@ -17,7 +18,7 @@ const Overlay = (props) => {
   return (
     <div className={overlayStyles.overlay}>
       {videoSrc && <Video src={videoSrc} />}
-      {!videoSrc && (<Focus />)}
+      {!videoSrc && <Focus />}
     </div>
   );
 };

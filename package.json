@@ -27,10 +27,12 @@
     "gatsby-plugin-offline": "^3.10.0",
     "gatsby-plugin-react-helmet": "^3.10.0",
     "gatsby-plugin-sass": "^3.2.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
     "react-helmet": "^6.1.0",
-    "sass": "^1.32.7"
+    "redux": "^4.0.5",
+    "sass": "^1.32.7",
+    "video-react": "^0.14.1"
   },
   "devDependencies": {
     "gh-pages": "^3.1.0"

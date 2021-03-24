@@ -5,3 +5,9 @@
   margin-top: auto;
   margin-bottom: auto;
 }
+
+.controlBar {
+  background-color: transparent !important;
+  display: flex;
+  justify-content: flex-end;
+}
