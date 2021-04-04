@@ -6,7 +6,7 @@ const Marker = (props) => {
       id={props.name}
       type="nft"
       marker={`videoName: ${props.videoName}`}
-      url={`https://litc0de.github.io/ar-slanted/markers/${props.markerName}`}
+      url={`markers/${props.markerName}`}
       smooth="true"
       smoothcount="10"
       smoothtolerance=".01"

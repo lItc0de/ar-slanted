@@ -8,6 +8,7 @@ const waitForGlobal = (name, timeout = 300) => {
         // some logic to check if script is loaded
         // usually it something global in window object
         if (window[name] !== undefined) {
+          console.log('global loaded:', name);
           return resolve();
         }
         if (waited >= timeout * 1000) {
