@@ -1,10 +1,10 @@
 import React from 'react';
 import * as overlayStyles from './overlay.module.css';
 
-const Overlay = ({ children }) => {
+const Overlay = (props) => {
   return (
-    <div className={overlayStyles.overlay}>
-      {children}
+    <div className={`${overlayStyles.overlay} ${props.grey ? overlayStyles.grey : ''}`}>
+      {props.children}
     </div>
   );
 };

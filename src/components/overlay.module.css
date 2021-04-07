@@ -4,18 +4,13 @@
   position: fixed;
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.2);
   width: 100vw;
   height: 100vh;
   padding: 8px;
   align-items: center;
   justify-content: center;
 }
-/*
-.focus {
-  box-sizing: border-box;
-  margin: 0;
-  flex: 1;
-  background: rgba(0, 0, 0, 0.6);
-  height: 100%;
-} */
+
+.grey {
+  background-color: rgba(0, 0, 0, 0.2);
+}

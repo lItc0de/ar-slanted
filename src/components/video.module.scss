@@ -1,0 +1,49 @@
+$color: rgba(0, 0, 0, 0.7);
+
+.video {
+  box-sizing: border-box;
+  width: 100%;
+  max-height: 100%;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.controlBar {
+  background-color: transparent !important;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.wrapperHidden {
+  opacity: 0 !important;
+  position: fixed !important;
+}
+
+.loadingSpinner {
+  display: flex;
+}
+
+.wrapper {
+  color: $color;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.titleContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.closeBtn {
+  padding: 8px 16px;
+  background-color: transparent;
+  border: none;
+}
+
+.svg {
+  > path {
+    fill: $color;
+  }
+}

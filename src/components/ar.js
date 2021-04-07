@@ -13,7 +13,8 @@ import Focus from './focus';
 import arStyles from './ar.module.scss';
 import '../../node_modules/video-react/dist/video-react.css';
 
-const timeout = (time) => new Promise((resolve) => setTimeout(() => resolve(), time));
+const timeout = (time) =>
+  new Promise((resolve) => setTimeout(() => resolve(), time));
 
 const moveVideo = () => {
   const video = document.getElementById('arjs-video');
@@ -22,7 +23,7 @@ const moveVideo = () => {
   console.log('moved video');
 };
 
-const registerMarkerComponents = async (setShowMarker, setCurrentVideoName) => {
+const registerMarkerComponents = async (setShowMarker, setCurrentMarker) => {
   // await timeout(1000);
 
   AFRAME.registerComponent('marker', {
@@ -37,11 +38,14 @@ const registerMarkerComponents = async (setShowMarker, setCurrentVideoName) => {
 
       marker.addEventListener('markerFound', () => {
         console.log('Marker found', videoName);
-        setCurrentVideoName(videoName);
+        const currentMarker = markers.find(
+          (marker) => marker.videoName === videoName
+        );
+        setCurrentMarker(currentMarker);
       });
 
       marker.addEventListener('markerLost', () => {
-        setCurrentVideoName(null);
+        setCurrentMarker(null);
       });
     },
   });
@@ -52,16 +56,16 @@ const registerMarkerComponents = async (setShowMarker, setCurrentVideoName) => {
 const Ar = () => {
   const [showScene, setShowScene] = useState(false);
   const [showMarker, setShowMarker] = useState(false);
-  const [currentVideoName, setCurrentVideoName] = useState(null);
+  const [currentMarker, setCurrentMarker] = useState(null);
   const [videoSrc, setVideoSrc] = useState(null);
 
   useEffect(() => {
     setVideoSrc(
-      currentVideoName
-        ? `https://litc0de.github.io/ar-slanted/videos/${currentVideoName}`
+      currentMarker
+        ? `https://litc0de.github.io/ar-slanted/videos/${currentMarker.videoName}`
         : null
     );
-  }, [currentVideoName]);
+  }, [currentMarker]);
 
   useEffect(() => {
     window.addEventListener('arjs-video-loaded', moveVideo);
@@ -71,8 +75,16 @@ const Ar = () => {
   }, []);
 
   useEffect(() => {
-    showScene && registerMarkerComponents(setShowMarker, setCurrentVideoName);
+    showScene && registerMarkerComponents(setShowMarker, setCurrentMarker);
   }, [showScene]);
+
+  const handleVideoClose = () => {
+    setCurrentMarker(null);
+  };
+
+  const setMarker = () => {
+    setCurrentMarker(markers.find((marker) => marker.videoName === 'The_Digitalls.mp4'));
+  }
 
   return (
     <>
@@ -103,9 +115,17 @@ const Ar = () => {
         </a-scene>
       )}
 
-      <Overlay>
-        {videoSrc && <Video src={videoSrc} />}
-        {!videoSrc && <Focus />}
+      <Overlay grey={!!currentMarker}>
+        {currentMarker && (
+          <Video
+            src={videoSrc}
+            handleVideoClose={handleVideoClose}
+            description={currentMarker.videoDescription}
+            author={currentMarker.author}
+          />
+        )}
+        {!currentMarker && <Focus />}
+        {false && !currentMarker && <button type="button" onClick={setMarker}>Show video</button>}
       </Overlay>
     </>
   );
