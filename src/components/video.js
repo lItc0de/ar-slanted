@@ -1,5 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Player, ControlBar, VolumeMenuButton, BigPlayButton } from 'video-react';
+import {
+  Player,
+  ControlBar,
+  VolumeMenuButton,
+  BigPlayButton,
+} from 'video-react';
+import LoadingSpinner from './loading-spinner';
 import * as videoStyles from './video.module.css';
 
 const Video = (props) => {
@@ -12,28 +18,30 @@ const Video = (props) => {
 
   useEffect(() => {
     playerRef.current.subscribeToStateChange(handleStateChange);
-  }, [playerRef])
+  }, [playerRef]);
 
   return (
-    <Player
-      src={props.src}
-      ref={playerRef}
-      className={videoStyles.video}
-      style={{ display: videoStarted ? 'block' : 'none' }}
-      playsInline
-      muted
-      loop
-      autoPlay
-    >
-      <BigPlayButton position="center" />
-      <ControlBar
-        autoHide={false}
-        className={videoStyles.controlBar}
-        disableDefaultControls
+    <>
+      {!videoStarted && <LoadingSpinner />}
+      <Player
+        src={props.src}
+        ref={playerRef}
+        className={`${videoStyles.video} ${videoStarted ? '' : videoStyles.videoHidden}`}
+        playsInline
+        muted
+        loop
+        autoPlay
       >
-        <VolumeMenuButton vertical />
-      </ControlBar>
-    </Player>
+        <BigPlayButton position="center" />
+        <ControlBar
+          autoHide={false}
+          className={videoStyles.controlBar}
+          disableDefaultControls
+        >
+          <VolumeMenuButton vertical />
+        </ControlBar>
+      </Player>
+    </>
   );
 };
 

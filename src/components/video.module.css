@@ -11,3 +11,8 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.videoHidden {
+  opacity: 0 !important;
+  display: fixed;
+}

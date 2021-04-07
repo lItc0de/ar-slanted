@@ -1,0 +1,50 @@
+$padding: calc((1vh + 1vw) / 2 * 10);
+$width: 3px;
+
+$wrapper-size: calc((80vh + 80vw) / 2);
+
+.wrapper {
+  width: $wrapper-size;
+  height: $wrapper-size;
+  position: relative;
+  max-height: 100%;
+}
+
+.topLeft,
+.topRight,
+.bottomLeft,
+.bottomRight {
+  display: block;
+  position: absolute;
+  border: 0 solid rgba(0, 0, 0, 0.7);
+  width: 10vw;
+  height: 10vw;
+}
+
+.topLeft {
+  top: $padding;
+  left: $padding;
+  border-left-width: $width;
+  border-top-width: $width;
+}
+
+.topRight {
+  top: $padding;
+  right: $padding;
+  border-right-width: $width;
+  border-top-width: $width;
+}
+
+.bottomLeft {
+  bottom: $padding;
+  left: $padding;
+  border-left-width: $width;
+  border-bottom-width: $width;
+}
+
+.bottomRight {
+  bottom: $padding;
+  right: $padding;
+  border-bottom-width: $width;
+  border-right-width: $width;
+}
