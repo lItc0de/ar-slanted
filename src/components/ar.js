@@ -62,7 +62,7 @@ const Ar = () => {
   useEffect(() => {
     setVideoSrc(
       currentMarker
-        ? `https://litc0de.github.io/ar-slanted/videos/${currentMarker.videoName}`
+        ? `https://downloads.slanted.de/Slanted-Magazine/AI/${currentMarker.videoName}`
         : null
     );
   }, [currentMarker]);
