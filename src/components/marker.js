@@ -3,9 +3,9 @@ import React from 'react';
 const Marker = (props) => {
   return (
     <a-nft
-      id={props.name}
+      id={props.markerName}
       type="nft"
-      marker={`videoName: ${props.videoName}`}
+      marker={`markerName: ${props.markerName}`}
       url={`https://downloads.slanted.de/Slanted-Magazine/AI/${props.markerName}`}
       smooth="true"
       smoothcount="10"

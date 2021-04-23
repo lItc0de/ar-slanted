@@ -10,7 +10,7 @@ import LoadingSpinner from './loading-spinner';
 import Video from './video';
 import Focus from './focus';
 
-import arStyles from './ar.module.scss';
+import * as arStyles from './ar.module.scss';
 import '../../node_modules/video-react/dist/video-react.css';
 
 const timeout = (time) =>
@@ -23,49 +23,43 @@ const moveVideo = () => {
   console.log('moved video');
 };
 
-const registerMarkerComponents = async (setShowMarker, setCurrentMarker) => {
+const registerMarkerComponents = async (setShowMarkers, setCurrentMarkerName) => {
   // await timeout(1000);
 
   AFRAME.registerComponent('marker', {
     schema: {
-      videoName: { type: 'string', default: 'the-fabricant-overlay' },
+      markerName: { type: 'string', default: 'the-fabricant-overlay' },
     },
 
     init: function () {
       const marker = this.el;
-      const videoName = this.data.videoName;
-      console.log('videoName: ', videoName);
+      const { markerName } = this.data;
 
       marker.addEventListener('markerFound', () => {
-        console.log('Marker found', videoName);
-        const currentMarker = markers.find(
-          (marker) => marker.videoName === videoName
-        );
-        setCurrentMarker(currentMarker);
+        console.log('Marker found', markerName);
+        setCurrentMarkerName(markerName);
       });
 
       marker.addEventListener('markerLost', () => {
-        setCurrentMarker(null);
+        console.log('Marker lost', markerName);
+        // setCurrentMarkerName(null);
       });
     },
   });
 
-  setShowMarker(true);
+  setShowMarkers(true);
 };
 
 const Ar = () => {
   const [showScene, setShowScene] = useState(false);
-  const [showMarker, setShowMarker] = useState(false);
+  const [showMarkers, setShowMarkers] = useState(false);
+  const [currentMarkerName, setCurrentMarkerName] = useState(null);
   const [currentMarker, setCurrentMarker] = useState(null);
-  const [videoSrc, setVideoSrc] = useState(null);
 
   useEffect(() => {
-    setVideoSrc(
-      currentMarker
-        ? `https://downloads.slanted.de/Slanted-Magazine/AI/${currentMarker.videoName}`
-        : null
-    );
-  }, [currentMarker]);
+    const marker = markers.find((marker) => marker.markerName === currentMarkerName);
+    setCurrentMarker(marker || null);
+  }, [currentMarkerName]);
 
   useEffect(() => {
     window.addEventListener('arjs-video-loaded', moveVideo);
@@ -75,15 +69,15 @@ const Ar = () => {
   }, []);
 
   useEffect(() => {
-    showScene && registerMarkerComponents(setShowMarker, setCurrentMarker);
+    showScene && registerMarkerComponents(setShowMarkers, setCurrentMarkerName);
   }, [showScene]);
 
   const handleVideoClose = () => {
-    setCurrentMarker(null);
+    setCurrentMarkerName(null);
   };
 
   const setMarker = () => {
-    setCurrentMarker(markers.find((marker) => marker.videoName === 'The_Digitalls.mp4'));
+    setCurrentMarkerName('The_Digitalls');
   }
 
   return (
@@ -102,12 +96,10 @@ const Ar = () => {
           embedded
           arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
         >
-          {showMarker &&
+          {showMarkers &&
             markers.map((marker) => (
               <Marker
-                name={marker.name}
                 markerName={marker.markerName}
-                videoName={marker.videoName}
                 key={marker.markerName}
               />
             ))}
@@ -118,7 +110,7 @@ const Ar = () => {
       <Overlay grey={!!currentMarker}>
         {currentMarker && (
           <Video
-            src={videoSrc}
+            videoName={currentMarker.videoName}
             handleVideoClose={handleVideoClose}
             description={currentMarker.videoDescription}
             author={currentMarker.author}

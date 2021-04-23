@@ -6,7 +6,7 @@ import {
   BigPlayButton,
 } from 'video-react';
 import LoadingSpinner from './loading-spinner';
-import videoStyles from './video.module.scss';
+import * as videoStyles from './video.module.scss';
 import Close from '../svg-icons/close.svg';
 
 const Video = (props) => {
@@ -40,24 +40,29 @@ const Video = (props) => {
             <Close className={videoStyles.svg} />
           </button>
         </div>
-        <Player
-          src={props.src}
-          ref={playerRef}
-          className={videoStyles.video}
-          playsInline
-          muted
-          loop
-          autoPlay
-        >
-          <BigPlayButton position="center" />
-          <ControlBar
-            autoHide={false}
-            className={videoStyles.controlBar}
-            disableDefaultControls
+        <div>
+          <Player
+            src={`https://downloads.slanted.de/Slanted-Magazine/AI/${props.videoName}`}
+            ref={playerRef}
+            className={videoStyles.video}
+            fluid={false}
+            width="100%"
+            height="100%"
+            playsInline
+            muted
+            loop
+            autoPlay
           >
-            <VolumeMenuButton vertical />
-          </ControlBar>
-        </Player>
+            <BigPlayButton position="center" />
+            <ControlBar
+              autoHide={false}
+              className={videoStyles.controlBar}
+              disableDefaultControls
+            >
+              <VolumeMenuButton vertical />
+            </ControlBar>
+          </Player>
+        </div>
         <h4>{props.author}</h4>
       </div>
     </>

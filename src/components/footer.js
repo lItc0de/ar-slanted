@@ -1,5 +1,5 @@
 import React from 'react';
-import footerStyles from './footer.module.scss';
+import * as footerStyles from './footer.module.scss';
 import Info from '../svg-icons/info.svg';
 
 const footer = () => {
