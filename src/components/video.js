@@ -12,8 +12,29 @@ import Close from '../svg-icons/close.svg';
 const Video = (props) => {
   const playerRef = useRef(null);
   const [videoStarted, setVideoStarted] = useState(false);
+  const [videoSize, setVideoSize] = useState({ width: 'auto', height: 'auto' });
+
+  const calculateSize = (videoWidth, videoHeight) => {
+    const videoRatio = videoWidth / videoHeight;
+
+    const windowWidth = window.innerWidth - 30;
+    const windowHeight = window.innerHeight - 200;
+
+    const heightX = windowWidth / videoRatio;
+    const widthX = windowHeight * videoRatio;
+
+    if (heightX <= windowHeight) {
+      setVideoSize({ width: windowWidth, height: heightX });
+      return;
+    }
+
+    setVideoSize({ width: widthX, height: windowHeight });
+  };
 
   const handleStateChange = (state) => {
+    if (state.hasStarted) {
+      calculateSize(state.videoWidth, state.videoHeight);
+    }
     setVideoStarted(state.hasStarted);
   };
 
@@ -40,29 +61,27 @@ const Video = (props) => {
             <Close className={videoStyles.svg} />
           </button>
         </div>
-        <div>
-          <Player
-            src={`https://downloads.slanted.de/Slanted-Magazine/AI/${props.videoName}`}
-            ref={playerRef}
-            className={videoStyles.video}
-            fluid={false}
-            width="100%"
-            height="100%"
-            playsInline
-            muted
-            loop
-            autoPlay
+        <Player
+          src={`https://downloads.slanted.de/Slanted-Magazine/AI/${props.videoName}`}
+          ref={playerRef}
+          className={videoStyles.video}
+          fluid={false}
+          width={videoSize.width}
+          height={videoSize.height}
+          playsInline
+          muted
+          loop
+          autoPlay
+        >
+          <BigPlayButton position="center" />
+          <ControlBar
+            autoHide={false}
+            className={videoStyles.controlBar}
+            disableDefaultControls
           >
-            <BigPlayButton position="center" />
-            <ControlBar
-              autoHide={false}
-              className={videoStyles.controlBar}
-              disableDefaultControls
-            >
-              <VolumeMenuButton vertical />
-            </ControlBar>
-          </Player>
-        </div>
+            <VolumeMenuButton vertical />
+          </ControlBar>
+        </Player>
         <h4>{props.author}</h4>
       </div>
     </>
