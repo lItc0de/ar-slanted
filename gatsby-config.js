@@ -3,6 +3,9 @@ module.exports = {
   siteMetadata: {
     title: 'ar-slanted',
   },
+  flags: {
+    DEV_SSR: true,
+  },
   plugins: [
     'gatsby-plugin-sass',
     'gatsby-plugin-react-helmet',
