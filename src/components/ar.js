@@ -10,7 +10,6 @@ import LoadingSpinner from './loading-spinner';
 import Video from './video';
 import Focus from './focus';
 
-import * as arStyles from './ar.module.scss';
 import '../../node_modules/video-react/dist/video-react.css';
 
 const timeout = (time) =>
