@@ -1,82 +1,46 @@
-/* globals AFRAME */
-
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import markers from '../data/markers.json';
-import waitForGlobal from '../utils/waitForGlobal';
 
-import Marker from './marker';
 import Overlay from './overlay';
 import LoadingSpinner from './loading-spinner';
 import Video from './video';
 import Focus from './focus';
 
+import initWebcam from '../services/webcamController';
+import WorkerController from '../services/workerController';
+
 import '../../node_modules/video-react/dist/video-react.css';
 
-const timeout = (time) =>
-  new Promise((resolve) => setTimeout(() => resolve(), time));
-
-const moveVideo = () => {
-  const video = document.getElementById('arjs-video');
-  const aScene = document.getElementById('a-scene');
-  aScene.after(video);
-  console.log('moved video');
-};
-
-const registerMarkerComponents = async (setShowMarkers, setCurrentMarkerName) => {
-  // await timeout(1000);
-
-  AFRAME.registerComponent('marker', {
-    schema: {
-      markerName: { type: 'string', default: 'the-fabricant-overlay' },
-    },
-
-    init: function () {
-      const marker = this.el;
-      const { markerName } = this.data;
-
-      marker.addEventListener('markerFound', () => {
-        console.log('Marker found', markerName);
-        setCurrentMarkerName(markerName);
-      });
-
-      marker.addEventListener('markerLost', () => {
-        console.log('Marker lost', markerName);
-        // setCurrentMarkerName(null);
-      });
-    },
-  });
-
-  setShowMarkers(true);
+const getMarker = (markerName) => {
+  return markers.find((marker) => marker.markerName === markerName) || null;
 };
 
 const Ar = () => {
-  const [showScene, setShowScene] = useState(false);
-  const [showMarkers, setShowMarkers] = useState(false);
-  const [currentMarkerName, setCurrentMarkerName] = useState(null);
+  const webcam = useRef(null);
+  const canvas = useRef(null);
+
   const [currentMarker, setCurrentMarker] = useState(null);
-
-  useEffect(() => {
-    const marker = markers.find((marker) => marker.markerName === currentMarkerName);
-    setCurrentMarker(marker || null);
-  }, [currentMarkerName]);
-
-  useEffect(() => {
-    window.addEventListener('arjs-video-loaded', moveVideo);
-    waitForGlobal('AFRAME').then(() => {
-      setShowScene(true);
-    });
-  }, []);
-
-  useEffect(() => {
-    showScene && registerMarkerComponents(setShowMarkers, setCurrentMarkerName);
-  }, [showScene]);
+  const [workerController, setWorkerController] = useState(null)
 
   const handleVideoClose = () => {
-    setCurrentMarkerName(null);
+    setCurrentMarker(null);
+    workerController.process();
   };
 
-  const setMarker = () => {
-    setCurrentMarkerName('The_Digitalls');
+  useEffect(() => {
+    initWebcam(onWebcamReady);
+  }, []);
+
+  const onWebcamReady = (stream) => {
+    webcam.current.srcObject = stream;
+    const controller = new WorkerController(markers, canvas, webcam, handleMarkerFound);
+    controller.startTracking();
+    setWorkerController(controller);
+  };
+
+  const handleMarkerFound = (marker) => {
+    if (currentMarker === marker) return;
+    setCurrentMarker(marker);
   }
 
   return (
@@ -87,24 +51,8 @@ const Ar = () => {
         </Overlay>
       </div>
 
-      {showScene && (
-        <a-scene
-          id="a-scene"
-          vr-mode-ui="enabled: false;"
-          renderer="logarithmicDepthBuffer: true;"
-          embedded
-          arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
-        >
-          {showMarkers &&
-            markers.map((marker) => (
-              <Marker
-                markerName={marker.markerName}
-                key={marker.markerName}
-              />
-            ))}
-          <a-entity camera></a-entity>
-        </a-scene>
-      )}
+      <video ref={webcam} loop autoPlay muted playsInline id="webcam"></video>
+      <canvas ref={canvas} width="640" height="480" />
 
       <Overlay grey={!!currentMarker}>
         {currentMarker && (
@@ -116,7 +64,6 @@ const Ar = () => {
           />
         )}
         {!currentMarker && <Focus />}
-        {false && !currentMarker && <button type="button" onClick={setMarker}>Show video</button>}
       </Overlay>
     </>
   );
