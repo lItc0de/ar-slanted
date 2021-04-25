@@ -3,13 +3,13 @@
 import { ARControllerNFT } from '@kalwalt/jsartoolkit-nft';
 
 class MarkerTracker {
-  constructor(marker) {
+  constructor(marker, width, height) {
     this.marker = marker;
     this.markerUrl = `https://downloads.slanted.de/Slanted-Magazine/AI/${marker.markerName}`;
     // this.onMarkerFound = onMarkerFound;
     this.ar = null;
-    this.width = 640;
-    this.height = 480;
+    this.width = width;
+    this.height = height;
   }
 
   async init() {
@@ -37,8 +37,8 @@ class MarkerTracker {
 
 let markerTracker;
 
-export const init = async (marker) => {
-  markerTracker = new MarkerTracker(marker);
+export const init = async (...args) => {
+  markerTracker = new MarkerTracker(...args);
   return markerTracker.init();
 }
 

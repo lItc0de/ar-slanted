@@ -5,16 +5,21 @@ const asyncTimeout = (timeout) => new Promise((resolve, reject) => {
 })
 
 class WorkerController {
-  constructor(markers, canvas, webcam, markerFoundCallback) {
+  constructor(markers, webcam, markerFoundCallback) {
     this.markers = markers;
     this.workers = [];
     this.webcam = webcam;
-    this.context_process = canvas.current.getContext('2d');
-    this.width = 640;
-    this.height = 480;
     this.markerFoundCallback = markerFoundCallback;
     this.shouldStopProcess = false;
     this.loadingBatchSize = 5;
+
+    this.width = 640;
+    this.height = 480;
+
+    const canvas = document.createElement('canvas');
+    canvas.width = this.width;
+    canvas.height = this.height;
+    this.context_process = canvas.getContext('2d');
   }
 
   async startTracking() {
@@ -87,7 +92,7 @@ class WorkerController {
   async initWorker(marker) {
     const worker = typeof window === 'object' && new ArWorker();
     worker.addEventListener('message', this.handleMessage.bind(this), false);
-    await worker.init(marker);
+    await worker.init(marker, this.width, this.height);
     this.workers.push(worker);
   }
 }

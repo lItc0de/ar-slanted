@@ -5,8 +5,8 @@ const handleError = (error) => {
 const constraints = {
   audio: false,
   video: {
-    //facingMode: "environment",
-    facingMode: 'user',
+    facingMode: 'environment',
+    // facingMode: 'user',
     width: 640,
     height: 480,
     frameRate: { max: 30 },
