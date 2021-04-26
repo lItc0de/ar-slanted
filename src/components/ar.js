@@ -24,6 +24,7 @@ const Ar = (props) => {
 
   const onWebcamReady = (stream) => {
     webcam.current.srcObject = stream;
+    webcam.current.play();
     const controller = new WorkerController(markers, webcam, handleMarkerFound);
     controller.startTracking();
     setWorkerController(controller);

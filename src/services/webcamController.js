@@ -1,5 +1,6 @@
 const handleError = (error) => {
   console.log('error', error);
+  alert('error', error.message);
 };
 
 const constraints = {
@@ -22,6 +23,11 @@ const initWebcam = (callback) => {
     navigator.oGetUserMedia;
   if (navigator.getUserMedia) {
     navigator.getUserMedia(constraints, callback, handleError);
+  } else {
+    console.log('called');
+    navigator.mediaDevices.getUserMedia(constraints)
+      .then(callback)
+      .catch(handleError);
   }
 };
 
