@@ -1,55 +1,65 @@
-import React, { useState } from 'react';
-import '../styles.scss';
-import '../../node_modules/video-react/dist/video-react.css';
+import React from 'react';
 
 import { Helmet } from 'react-helmet';
 
-import Ar from '../components/ar';
-import Header from '../components/header';
-import Footer from '../components/footer';
+import '../styles.scss';
 
-import Overlay from '../components/overlay';
-import Video from '../components/video';
-import Focus from '../components/focus';
 
 const IndexPage = () => {
-  const [currentMarker, setCurrentMarker] = useState(null);
-
-  const handleVideoClose = () => {
-    setCurrentMarker(null);
-  };
-
-  const onMarkerChange = (marker) => {
-    if (currentMarker === marker) return;
-    setCurrentMarker(marker);
-  }
-
   return (
     <>
       <Helmet>
-        <title>Ar Slanted</title>
+        <title>slanted ar</title>
       </Helmet>
 
-      <Header />
+      <div className="center_wrapper">
+        <h1> ai — choose chapter </h1>
 
-      <Ar
-        onMarkerChange={onMarkerChange}
-        currentMarker={currentMarker}
-      />
+        <div className="menu">
+          <div className="link_wrapper">
+            <div className="index_number">1</div>
+            <a href="error.html">Digital Culture</a>
+          </div>
+          <div className="link_wrapper">
+            <div className="index_number">2</div>
+            <a href="#">Glitch</a>
+          </div>
+          <div className="link_wrapper">
+            <div className="index_number">3</div>
+            <a href="#">Transhumanism</a>
+          </div>
+          <div className="link_wrapper">
+            <div className="index_number">4</div>
+            <a href="#">Privacy</a>
+          </div>
+          <div className="link_wrapper">
+            <div className="index_number">5</div>
+            <a href="#">Echochambers</a>
+          </div>
+          <div className="link_wrapper">
+            <div className="index_number">6</div>
+            <a href="#">Connection</a>
+          </div>
+          <div className="link_wrapper">
+            <div className="index_number">7</div>
+            <a href="#">Chances</a>
+          </div>
+          <div className="link_wrapper">
+            <div className="index_number">8</div>
+            <a href="#">Dead Ends</a>
+          </div>
+          <div className="link_wrapper">
+            <div className="index_number">9</div>
+            <a href="#">Rules</a>
+          </div>
+        </div>
 
-      <Overlay grey={!!currentMarker}>
-        {currentMarker && (
-          <Video
-            videoName={currentMarker.videoName}
-            handleVideoClose={handleVideoClose}
-            description={currentMarker.videoDescription}
-            author={currentMarker.author}
-          />
-        )}
-        {!currentMarker && <Focus />}
-      </Overlay>
-
-      <Footer />
+        <div className="footer">
+          <div className="info_link_wrapper">
+            <a href="imprint.html">i</a>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
