@@ -1,42 +1,92 @@
-import React, { useEffect, useState, useRef } from 'react';
-import markers from '../data/markers.json';
+/* globals AFRAME */
 
-import initWebcam from '../services/webcamController';
-import WorkerController from '../services/workerController';
+import React, { useEffect, useState } from 'react';
+import waitForGlobal from '../utils/waitForGlobal';
+import Overlay from '../components/overlay';
+import LoadingSpinner from '../components/loading-spinner';
 
-import * as arStyles from './ar.module.scss';
+import Marker from './marker';
+
+// const timeout = (time) =>
+//   new Promise((resolve) => setTimeout(() => resolve(), time));
+
+const moveVideo = () => {
+  const video = document.getElementById('arjs-video');
+  const aScene = document.getElementById('a-scene');
+  aScene.after(video);
+  console.log('moved video');
+};
+
+const registerMarkerComponents = async (setShowMarkers, handleMarkerFound) => {
+  // await timeout(1000);
+  console.log('register marker components');
+
+  AFRAME.registerComponent('marker', {
+    schema: {
+      markerName: { type: 'string', default: 'the-fabricant-overlay' },
+    },
+
+    init: function () {
+      const marker = this.el;
+      const { markerName } = this.data;
+
+      marker.addEventListener('markerFound', () => {
+        console.log('Marker found', markerName);
+        handleMarkerFound(markerName);
+      });
+    },
+  });
+
+  setShowMarkers(true);
+};
 
 const Ar = (props) => {
-  const webcam = useRef(null);
-
-  const [workerController, setWorkerController] = useState(null)
+  const [showScene, setShowScene] = useState(false);
+  const [showMarkers, setShowMarkers] = useState(false);
 
   useEffect(() => {
-    initWebcam(onWebcamReady);
+    window.addEventListener('arjs-video-loaded', moveVideo);
+    console.log('looooool');
+    waitForGlobal('AFRAME').then(() => {
+      setShowScene(true);
+    });
   }, []);
 
   useEffect(() => {
-    if (props.currentMarker !== null) return;
-    if (!workerController) return;
+    showScene && registerMarkerComponents(setShowMarkers, handleMarkerFound);
+  }, [showScene]);
 
-    workerController.process();
-  }, [props.currentMarker])
-
-  const onWebcamReady = (stream) => {
-    webcam.current.srcObject = stream;
-    webcam.current.play();
-    const controller = new WorkerController(markers, webcam, handleMarkerFound);
-    controller.startTracking();
-    setWorkerController(controller);
-  };
-
-  const handleMarkerFound = (marker) => {
+  const handleMarkerFound = (markerName) => {
+    const marker = props.markers.find((marker) => marker.markerName === markerName);
     props.onMarkerChange(marker);
   }
 
   return (
     <>
-      <video ref={webcam} loop autoPlay muted playsInline className={arStyles.webcam}></video>
+      <div className="arjs-loader">
+        <Overlay>
+          <LoadingSpinner />
+        </Overlay>
+      </div>
+
+      {showScene && (
+        <a-scene
+          id="a-scene"
+          vr-mode-ui="enabled: false;"
+          renderer="logarithmicDepthBuffer: true;"
+          embedded
+          arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
+        >
+          {showMarkers &&
+            props.markers.map(({ markerName }) => (
+              <Marker
+                markerName={markerName}
+                key={markerName}
+              />
+            ))}
+          <a-entity camera></a-entity>
+        </a-scene>
+      )}
     </>
   );
 };
