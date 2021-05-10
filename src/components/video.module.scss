@@ -1,10 +1,13 @@
-$color: rgba(0, 0, 0, 0.7);
+$color: rgba(0, 0, 0);
 
 .video {
   box-sizing: border-box;
   width: 100%;
   margin-top: auto;
   margin-bottom: auto;
+}
+
+.videoShown {
   align-self: center;
 }
 
@@ -14,13 +17,14 @@ $color: rgba(0, 0, 0, 0.7);
   justify-content: flex-end;
 }
 
-.wrapperHidden {
+.videoHidden {
   opacity: 0 !important;
   position: fixed !important;
 }
 
 .loadingSpinner {
-  display: flex;
+  align-self: center;
+  margin: 4rem;
 }
 
 .wrapper {
@@ -30,6 +34,7 @@ $color: rgba(0, 0, 0, 0.7);
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  padding: 1rem;
 }
 
 .titleContainer {

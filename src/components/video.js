@@ -44,13 +44,8 @@ const Video = (props) => {
 
   return (
     <>
-      {!videoStarted && (
-        <LoadingSpinner className={videoStyles.loadingSpinner} />
-      )}
       <div
-        className={`${videoStyles.wrapper} ${
-          videoStarted ? '' : videoStyles.wrapperHidden
-        }`}
+        className={videoStyles.wrapper}
       >
         <div className={videoStyles.titleContainer}>
           <h4>{props.description}</h4>
@@ -61,27 +56,32 @@ const Video = (props) => {
             <Close className={videoStyles.svg} />
           </button>
         </div>
-        <Player
-          src={`https://downloads.slanted.de/Slanted-Magazine/AI/${props.videoName}`}
-          ref={playerRef}
-          className={videoStyles.video}
-          fluid={false}
-          width={videoSize.width}
-          height={videoSize.height}
-          playsInline
-          muted
-          loop
-          autoPlay
-        >
-          <BigPlayButton position="center" />
-          <ControlBar
-            autoHide={false}
-            className={videoStyles.controlBar}
-            disableDefaultControls
+        {!videoStarted && (
+          <LoadingSpinner className={videoStyles.loadingSpinner} />
+        )}
+        <div className={videoStarted ? videoStyles.videoShown : videoStyles.videoHidden}>
+          <Player
+            src={`https://downloads.slanted.de/Slanted-Magazine/AI/${props.videoName}`}
+            ref={playerRef}
+            className={videoStyles.video}
+            fluid={false}
+            width={videoSize.width}
+            height={videoSize.height}
+            playsInline
+            muted
+            loop
+            autoPlay
           >
-            <VolumeMenuButton vertical />
-          </ControlBar>
-        </Player>
+            <BigPlayButton position="center" />
+            <ControlBar
+              autoHide={false}
+              className={videoStyles.controlBar}
+              disableDefaultControls
+            >
+              <VolumeMenuButton vertical />
+            </ControlBar>
+          </Player>
+        </div>
         <h4>{props.author}</h4>
       </div>
     </>

@@ -1,0 +1,39 @@
+.menu {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+
+  .menuItem {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    font-size: calc(1.5rem + 2vw);
+    margin-bottom: 1rem;
+    position: relative;
+    border-color: black;
+
+    &:hover,
+    &:active {
+      color: #fff;
+      border-color: #fff;
+    }
+
+    .menuNumber {
+      font-size: calc(1rem + 1vw);
+      position: absolute;
+      left: -1.5rem;
+      top: 0.25rem;
+    }
+
+    .menuLink {
+      color: inherit;
+      border-bottom: 0.25rem solid black;
+      border-color: inherit;
+      flex: 1;
+      text-decoration: none;
+    }
+  }
+}

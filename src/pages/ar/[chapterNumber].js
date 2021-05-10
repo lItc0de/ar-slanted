@@ -4,7 +4,6 @@ import { Helmet } from 'react-helmet';
 import chapters from '../../data/markers.json'
 import Ar from '../../components/ar';
 import Header from '../../components/header';
-import Footer from '../../components/footer';
 
 import Overlay from '../../components/overlay';
 import Video from '../../components/video';
@@ -58,8 +57,6 @@ const ArChapterPage = ({ chapterNumber }) => {
         )}
         {!currentMarker && <Focus />}
       </Overlay>
-
-      <Footer />
     </>
   );
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import * as overlayStyles from './overlay.module.css';
+import * as overlayStyles from './overlay.module.scss';
 
 const Overlay = (props) => {
   return (

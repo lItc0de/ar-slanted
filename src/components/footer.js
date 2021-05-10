@@ -1,13 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import * as footerStyles from './footer.module.scss';
 import Info from '../svg-icons/info.svg';
 
-const footer = () => {
+import { Link } from 'gatsby';
+
+const Footer = (props) => {
+  const [pathname, setPathname] = useState('');
+
+  useEffect(() => {
+    if (!props.location) return;
+
+    debugger
+
+    setPathname(props.location.pathname)
+  }, [props.location])
+
+
   return (
     <div className={footerStyles.footer}>
-      <a href="./imprint" target="_blank"><Info className={footerStyles.svg} /></a>
+      {pathname !== '/' && <Link to="/">Home</Link>}
+      {pathname !== '/imprint' && <Link to="/imprint"><Info className={footerStyles.svg} /></Link>}
     </div>
   );
 };
 
-export default footer;
+export default Footer;
