@@ -19,7 +19,8 @@ const IndexPage = (props) => {
   }, [])
 
   const generateLink = (number) => {
-    const isChrome = browserVersion === 'Chrome';
+    const validVersions = ['crios', 'chrome'];
+    const isChrome = validVersions.includes(browserVersion);
     if (isChrome) return `/ar/${number}`;
 
     return `/fallback/${number}`;
