@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { Helmet } from 'react-helmet';
 import { Link } from 'gatsby';
+import { NumberList, NumberListItem } from '../components/number-list';
 import Layout from '../components/layout'
 
 import chapters from '../data/markers.json'
@@ -35,14 +36,13 @@ const IndexPage = (props) => {
       <Layout location={props.location}>
         <h3 className={indexStyles.title}>ai — choose chapter</h3>
 
-        <ul className={indexStyles.menu}>
+        <NumberList>
           {chapters.map(({ number, title }) => (
-            <li className={indexStyles.menuItem} key={number}>
-              <span className={indexStyles.menuNumber}>{number}</span>
-              <Link className={indexStyles.menuLink} to={generateLink(number)}>{title}</Link>
-            </li>
+            <NumberListItem key={number} number={number}>
+              <Link className={indexStyles.listLink} to={generateLink(number)}>{title}</Link>
+            </NumberListItem>
           ))}
-        </ul>
+        </NumberList>
       </Layout>
     </>
   );

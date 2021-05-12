@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react';
 import Overlay from '../../components/overlay';
 import Video from '../../components/video';
 import Layout from '../../components/layout';
+import { NumberList, NumberListItem } from '../../components/number-list';
 
-import * as chapterStyles from './chapters.module.scss';
 import chapters from '../../data/markers.json';
 
 const VideosPage = ({ chapterNumber }) => {
@@ -26,18 +26,18 @@ const VideosPage = ({ chapterNumber }) => {
       <Layout>
         <h3>ai — choose video</h3>
 
-        <ul className={chapterStyles.menu}>
-          {chapter &&
-            chapter.markers.map((marker, i) => {
-              return (
-                <li
-                  className={chapterStyles.menuItem}
-                  key={`${marker.videoName}-${i}`}
-                  onClick={() => setCurrentMarker(marker)}
-                >{`${marker.author} - ${marker.videoDescription}`}</li>
-              );
-            })}
-        </ul>
+        <NumberList>
+        {chapter &&
+            chapter.markers.sort((a, b) => a.page - b.page).map((marker, i) => (
+            <NumberListItem
+              key={`${marker.videoName}-${i}`}
+              number={marker.page}
+              onClick={() => setCurrentMarker(marker)}
+            >
+              {`${marker.author} - ${marker.videoDescription}`}
+            </NumberListItem>
+          ))}
+        </NumberList>
       </Layout>
 
       {currentMarker && (
