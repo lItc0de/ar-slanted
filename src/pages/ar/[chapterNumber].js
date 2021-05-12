@@ -9,7 +9,6 @@ import Overlay from '../../components/overlay';
 import Video from '../../components/video';
 import Focus from '../../components/focus';
 
-import '../../styles.scss';
 import '../../../node_modules/video-react/dist/video-react.css';
 
 const ArChapterPage = ({ chapterNumber }) => {
