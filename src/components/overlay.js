@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import * as overlayStyles from './overlay.module.scss';
 
-const Overlay = (props) => {
+const Overlay = ({ children, grey, show }) => {
+  useEffect(() => {
+    if (!grey) return;
+    const body = document.getElementsByTagName('body')[0];
+    body.style.overflow = show ? 'hidden' : 'auto';
+  }, [show, grey]);
+
   return (
-    <div className={`${overlayStyles.overlay} ${props.grey ? overlayStyles.grey : ''}`}>
-      {props.children}
-    </div>
+    <>
+      {show && (
+        <div className={`${overlayStyles.overlay} ${grey ? overlayStyles.grey : ''}`}>
+          {children}
+        </div>
+      )}
+    </>
   );
 };
 

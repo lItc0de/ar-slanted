@@ -46,7 +46,6 @@ const Ar = (props) => {
 
   useEffect(() => {
     window.addEventListener('arjs-video-loaded', moveVideo);
-    console.log('looooool');
     waitForGlobal('AFRAME').then(() => {
       setShowScene(true);
     });
@@ -64,7 +63,7 @@ const Ar = (props) => {
   return (
     <>
       <div className="arjs-loader">
-        <Overlay>
+        <Overlay show>
           <LoadingSpinner />
         </Overlay>
       </div>

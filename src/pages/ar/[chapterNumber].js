@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 
-import chapters from '../../data/markers.json'
+import chapters from '../../data/markers.json';
+import Layout from '../../components/layout';
 import Ar from '../../components/ar';
 import Header from '../../components/header';
 
@@ -16,9 +17,11 @@ const ArChapterPage = ({ chapterNumber }) => {
   const [chapter, setChapter] = useState(null);
 
   useEffect(() => {
-    setChapter(chapters.find((chapter) => chapter.number === Number(chapterNumber)));
+    setChapter(
+      chapters.find((chapter) => chapter.number === Number(chapterNumber))
+    );
     console.log({ chapterNumber });
-  }, [chapterNumber])
+  }, [chapterNumber]);
 
   const handleVideoClose = () => {
     setCurrentMarker(null);
@@ -27,7 +30,7 @@ const ArChapterPage = ({ chapterNumber }) => {
   const onMarkerChange = (marker) => {
     if (currentMarker === marker) return;
     setCurrentMarker(marker);
-  }
+  };
 
   return (
     <>
@@ -37,15 +40,19 @@ const ArChapterPage = ({ chapterNumber }) => {
         <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
       </Helmet>
 
-      <Header />
+      <Layout ar>
+        <Header />
 
-      {chapter && <Ar
-        onMarkerChange={onMarkerChange}
-        currentMarker={currentMarker}
-        markers={chapter.markers}
-      />}
+        {chapter && (
+          <Ar
+            onMarkerChange={onMarkerChange}
+            currentMarker={currentMarker}
+            markers={chapter.markers}
+          />
+        )}
+      </Layout>
 
-      <Overlay grey={!!currentMarker}>
+      <Overlay grey={!!currentMarker} show={!!currentMarker}>
         {currentMarker && (
           <Video
             videoName={currentMarker.videoName}

@@ -27,29 +27,31 @@ const VideosPage = ({ chapterNumber }) => {
         <h3>ai — choose video</h3>
 
         <NumberList>
-        {chapter &&
-            chapter.markers.sort((a, b) => a.page - b.page).map((marker, i) => (
-            <NumberListItem
-              key={`${marker.videoName}-${i}`}
-              number={marker.page}
-              onClick={() => setCurrentMarker(marker)}
-            >
-              {`${marker.author} - ${marker.videoDescription}`}
-            </NumberListItem>
-          ))}
+          {chapter &&
+            chapter.markers
+              .sort((a, b) => a.page - b.page)
+              .map((marker, i) => (
+                <NumberListItem
+                  key={`${marker.videoName}-${i}`}
+                  number={marker.page}
+                  onClick={() => setCurrentMarker(marker)}
+                >
+                  {`${marker.author} - ${marker.videoDescription}`}
+                </NumberListItem>
+              ))}
         </NumberList>
       </Layout>
 
-      {currentMarker && (
-        <Overlay grey>
+      <Overlay show={!!currentMarker} grey>
+        {currentMarker && (
           <Video
             videoName={currentMarker.videoName}
             handleVideoClose={handleVideoClose}
             description={currentMarker.videoDescription}
             author={currentMarker.author}
           />
-        </Overlay>
-      )}
+        )}
+      </Overlay>
     </>
   );
 };
