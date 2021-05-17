@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import * as layoutStyles from './layout.module.scss';
 import Footer from './footer';
 
-const Layout = ({ children, ar, location }) => {
+const Layout = ({ children, ar, location, flex }) => {
   useEffect(() => {
     const body = document.getElementsByTagName('body')[0];
     console.log(ar);
@@ -20,12 +20,12 @@ const Layout = ({ children, ar, location }) => {
   }, [ar])
 
   return (
-    <main className={ar ? layoutStyles.layoutAr : layoutStyles.layout}>
+    <main className={`${ar ? layoutStyles.layoutAr : layoutStyles.layout} ${flex && layoutStyles.flex}`}>
       <div className={layoutStyles.content}>
         {children}
       </div>
 
-      <Footer location={location} />
+      <Footer location={location} ar={ar} />
     </main>
   )
 }

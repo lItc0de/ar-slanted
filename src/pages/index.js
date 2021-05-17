@@ -20,7 +20,7 @@ const IndexPage = (props) => {
   }, [])
 
   const generateLink = (number) => {
-    const validVersions = ['crios'];
+    const validVersions = ['crios', 'chrome'];
     const isChrome = validVersions.includes(browserVersion);
     if (isChrome) return `/ar/${number}`;
 

@@ -41,7 +41,7 @@ const ArChapterPage = ({ chapterNumber }) => {
       </Helmet>
 
       <Layout ar>
-        <Header />
+        {chapter && <Header chapter={chapter.title} />}
 
         {chapter && (
           <Ar

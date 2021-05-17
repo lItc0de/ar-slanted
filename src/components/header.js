@@ -1,10 +1,10 @@
 import React from 'react';
 import * as headerStyles from './header.module.scss';
 
-const Header = () => {
+const Header = ({ chapter }) => {
   return (
     <header className={headerStyles.header}>
-      <h4>slanted 37 - A.I.</h4>
+      <h3>ai - {chapter}</h3>
     </header>
   )
 }

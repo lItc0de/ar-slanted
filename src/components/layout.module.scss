@@ -8,6 +8,10 @@
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+
+  .footer {
+    background-color: rgba(255, 241, 0, 0.7);
+  }
 }
 
 .layout,
@@ -21,5 +25,9 @@
     flex: 0 1 30rem;
     padding: 0.5rem 3rem 4rem;
     box-sizing: border-box;
+  }
+
+  &.flex .content {
+    flex: 0 1 100vw;
   }
 }

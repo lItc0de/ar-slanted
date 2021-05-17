@@ -15,7 +15,6 @@ const moveVideo = () => {
 };
 
 const registerMarkerComponents = async (setShowMarkers, handleMarkerFound) => {
-  // await timeout(1000);
   console.log('register marker components');
 
   AFRAME.registerComponent('marker', {
@@ -61,7 +60,7 @@ const Ar = (props) => {
     <>
       <div className="arjs-loader">
         <Overlay show>
-          <LoadingSpinner />
+          <LoadingSpinner>Loading Chapters</LoadingSpinner>
         </Overlay>
       </div>
 
