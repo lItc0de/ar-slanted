@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import * as layoutStyles from './layout.module.scss';
 import Footer from './footer';
 
-const Layout = ({ children, ar }) => {
+const Layout = ({ children, ar, location }) => {
   useEffect(() => {
     const body = document.getElementsByTagName('body')[0];
     console.log(ar);
@@ -25,7 +25,7 @@ const Layout = ({ children, ar }) => {
         {children}
       </div>
 
-      <Footer />
+      <Footer location={location} />
     </main>
   )
 }

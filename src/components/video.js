@@ -18,7 +18,7 @@ const Video = (props) => {
     const videoRatio = videoWidth / videoHeight;
 
     const windowWidth = window.innerWidth - 30;
-    const windowHeight = window.innerHeight - 200;
+    const windowHeight = window.innerHeight - 100;
 
     const heightX = windowWidth / videoRatio;
     const widthX = windowHeight * videoRatio;
@@ -48,7 +48,7 @@ const Video = (props) => {
         className={videoStyles.wrapper}
       >
         <div className={videoStyles.titleContainer}>
-          <h4>{props.description}</h4>
+          <h4 className={videoStyles.title}>{props.description}</h4>
           <button
             className={videoStyles.closeBtn}
             onClick={props.handleVideoClose}
@@ -82,7 +82,7 @@ const Video = (props) => {
             </ControlBar>
           </Player>
         </div>
-        <h4>{props.author}</h4>
+        <h4 className={videoStyles.description}>{props.author}</h4>
       </div>
     </>
   );
