@@ -20,7 +20,7 @@ const IndexPage = (props) => {
   }, [])
 
   const generateLink = (number) => {
-    const validVersions = ['crios', 'chrome'];
+    const validVersions = ['crios'];
     const isChrome = validVersions.includes(browserVersion);
     if (isChrome) return `/ar/${number}`;
 
@@ -34,7 +34,7 @@ const IndexPage = (props) => {
       </Helmet>
 
       <Layout location={props.location}>
-        <h3 className={indexStyles.title}>ai — choose chapter</h3>
+        <h3>ai — choose chapter</h3>
 
         <NumberList>
           {chapters.map(({ number, title }) => (

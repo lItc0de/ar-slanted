@@ -7,9 +7,6 @@ import LoadingSpinner from '../components/loading-spinner';
 
 import Marker from './marker';
 
-// const timeout = (time) =>
-//   new Promise((resolve) => setTimeout(() => resolve(), time));
-
 const moveVideo = () => {
   const video = document.getElementById('arjs-video');
   const aScene = document.getElementById('a-scene');
