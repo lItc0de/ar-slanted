@@ -4,12 +4,17 @@ import Overlay from '../../components/overlay';
 import Video from '../../components/video';
 import Layout from '../../components/layout';
 import { NumberList, NumberListItem } from '../../components/number-list';
+import autoUpdateViewHeight from '../../utils/setViewHeight';
 
 import chapters from '../../data/markers.json';
 
 const VideosPage = ({ chapterNumber }) => {
   const [chapter, setChapter] = useState(null);
   const [currentMarker, setCurrentMarker] = useState(null);
+
+  useEffect(() => {
+    autoUpdateViewHeight();
+  }, []);
 
   useEffect(() => {
     setChapter(

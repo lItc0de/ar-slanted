@@ -6,23 +6,23 @@ import { NumberList, NumberListItem } from '../components/number-list';
 import Layout from '../components/layout'
 
 import chapters from '../data/markers.json'
-import getBrowserVersion from '../services/browserVersion';
+import isChromeOnMobile from '../services/browserVersion';
+import autoUpdateViewHeight from '../utils/setViewHeight';
 
 import * as indexStyles from './index.module.scss';
 import '../styles.scss';
 
 
 const IndexPage = (props) => {
-  const [browserVersion, setBrowserVersion] = useState('');
+  const [showAr, setShowAr] = useState('');
 
   useEffect(() => {
-    setBrowserVersion(getBrowserVersion());
+    setShowAr(isChromeOnMobile());
+    autoUpdateViewHeight();
   }, [])
 
   const generateLink = (number) => {
-    const validVersions = ['crios'];
-    const isChrome = validVersions.includes(browserVersion);
-    if (isChrome) return `/ar/${number}`;
+    if (showAr) return `/ar/${number}`;
 
     return `/fallback/${number}`;
   };

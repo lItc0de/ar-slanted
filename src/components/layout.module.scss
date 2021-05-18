@@ -1,11 +1,13 @@
 .layout {
   background-color: rgb(255, 241, 0);
   min-height: 100vh;
+  min-height: calc(var(--vh, 1vh) * 100);
   width: 100vw;
 }
 
 .layoutAr {
   height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   width: 100vw;
   overflow: hidden;
 

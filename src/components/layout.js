@@ -10,7 +10,7 @@ const Layout = ({ children, ar, location, flex }) => {
 
     if (ar) {
       body.style.overflow = 'hidden';
-      body.style.height = '100vh';
+      body.style.height = 'calc(var(--vh, 1vh) * 100)';
       body.style.width = '100vw';
     } else {
       body.style.overflow = 'auto';

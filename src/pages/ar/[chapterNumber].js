@@ -9,12 +9,17 @@ import Header from '../../components/header';
 import Overlay from '../../components/overlay';
 import Video from '../../components/video';
 import Focus from '../../components/focus';
+import autoUpdateViewHeight from '../../utils/setViewHeight';
 
 import '../../../node_modules/video-react/dist/video-react.css';
 
 const ArChapterPage = ({ chapterNumber }) => {
   const [currentMarker, setCurrentMarker] = useState(null);
   const [chapter, setChapter] = useState(null);
+
+  useEffect(() => {
+    autoUpdateViewHeight();
+  }, []);
 
   useEffect(() => {
     setChapter(

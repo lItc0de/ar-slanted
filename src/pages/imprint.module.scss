@@ -1,6 +1,7 @@
 .wrapper {
   height: 100%;
   max-height: 100vh;
+  max-height: calc(var(--vh, 1vh) * 100);
   overflow: auto;
   padding: 8px;
   box-sizing: border-box;

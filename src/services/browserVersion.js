@@ -1,9 +1,12 @@
-const getBrowserVersion = () => {
-  const match = navigator.userAgent.match(/(opera|chrome|crios|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i);
+const isChromeOnMobile = () => {
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  if (!isMobile) return false;
 
-  if (!match) return '';
+  const chrome = /chrome|crios/i.test(navigator.userAgent);
+  if (!chrome) return false;
 
-  return match[1].toLowerCase();
+  return true;
 }
 
-export default getBrowserVersion;
+export default isChromeOnMobile;
+
