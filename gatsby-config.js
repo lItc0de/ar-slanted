@@ -1,5 +1,5 @@
 module.exports = {
-  pathPrefix: '/ar-slanted',
+  pathPrefix: '/ai',
   siteMetadata: {
     title: 'ar-slanted',
   },
@@ -11,6 +11,7 @@ module.exports = {
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-offline',
     'gatsby-plugin-mdx',
+    'gatsby-plugin-htaccess',
     {
       resolve: 'gatsby-plugin-react-svg',
       options: {
